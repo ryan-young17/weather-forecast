@@ -26,18 +26,68 @@ var getWeatherForecast = function (lat, lon) {
         })
         .then(function (data) {
             console.log(data);
-            displayWeather(data.list);
+            displayWeather(data, data.list);
         })
         .catch(function (error) {
             console.log(error);
         });
 };
 
-var displayWeather = function (list) {
-    for (var i = 0; i < 6; i++) {
+var displayWeather = function (data, list) {
+    for (var i = 0; i < 40; i = i + 8) {
         console.log(list[i].main.temp);
         console.log(list[i].main.humidity);
         console.log(list[i].wind.speed);
+        console.log(list[i].dt_txt);
+        console.log(data.city.name);           
+        // // FEATURE CARD
+        var featureCard = document.createElement("div");
+        featureCard.className = "card m-5 bg-success text-light";
+        // // FEATURE CARD BODY
+        var featureCardBody = document.createElement("div");
+        featureCardBody.className = "card-body";
+        // // FEATURE CARD HEADER
+        var featureCardHeader = document.createElement("h5");
+        featureCardHeader.className = "card-title";
+        featureCardHeader.textContent = data.city.name;
+        // // FEATURE CARD TEMP LINE
+        var featureCardTemp = document.createElement("p");
+        featureCardTemp.className = "card-text";
+        featureCardTemp.textContent = list[0].main.temp;
+        // // FEATURE CARD HUMIDITY LINE
+        var featureCardHumidity = document.createElement("p");
+        featureCardHumidity.className = "card-text";
+        featureCardHumidity.textContent = list[0].main.humidity;
+        // // FEATURE CARD WIND LINE
+        var featureCardWind = document.createElement("p");
+        featureCardWind.className = "card-text";
+        featureCardWind.textContent = list[0].wind.speed;
+
+        // FIVE-DAY FORECAST CARDS
+
+        var CardEl = document.createElement("div");
+        CardEl.className = "card col me-3 bg-dark text-light";
+        // CARD BODY
+        var CardBody = document.createElement("div");
+        CardBody.className = "card-body";
+        // CARD HEADER
+        var CardHeader = document.createElement("h5");
+        CardHeader.className = "card-title";
+        CardHeader.textContent = data.city.name;
+        // CARD TEMP LINE
+        var CardTemp = document.createElement("p");
+        CardTemp.className = "card-text";
+        CardTemp.textContent = list[i].main.temp;
+        // CARD HUMIDITY LINE
+        var CardHumidity = document.createElement("p");
+        CardHumidity.className = "card-text";
+        CardHumidity.textContent = list[i].main.humidity;
+        // CARD WIND LINE
+        var CardWind = document.createElement("p");
+        CardWind.className = "card-text";
+        CardWind.textContent = list[i].wind.speed;
+
+
     }
 };
 
