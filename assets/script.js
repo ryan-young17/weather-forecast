@@ -19,7 +19,7 @@ var getCityCoordinates = function () {
 };
 
 var getWeatherForecast = function (lat, lon) {
-    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=2b66bb1041cf5c2ab89f9477dd5f8008";
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=2b66bb1041cf5c2ab89f9477dd5f8008&units=imperial";
     fetch(forecastUrl)
         .then(function (response) {
             return response.json();
@@ -36,5 +36,4 @@ var getWeatherForecast = function (lat, lon) {
 searchBtn.addEventListener("click", function (event) {
     event.preventDefault();
     getCityCoordinates();
-    getWeatherForecast(lat, lon);
 });
