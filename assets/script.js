@@ -26,12 +26,20 @@ var getWeatherForecast = function (lat, lon) {
         })
         .then(function (data) {
             console.log(data);
+            displayWeather(data.list);
         })
         .catch(function (error) {
             console.log(error);
         });
 };
 
+var displayWeather = function (list) {
+    for (var i = 0; i < 6; i++) {
+        console.log(list[i].main.temp);
+        console.log(list[i].main.humidity);
+        console.log(list[i].wind.speed);
+    }
+};
 
 searchBtn.addEventListener("click", function (event) {
     event.preventDefault();
