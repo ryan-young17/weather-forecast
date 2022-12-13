@@ -34,30 +34,34 @@ var getWeatherForecast = function (lat, lon) {
 };
 
 var displayWeather = function (data, list) {
-    for (var i = 0; i < 40; i = i + 8) {          
-        // // FEATURE CARD
-        var featureCardEl = document.createElement("div");
-        featureCardEl.className = "card m-5 bg-success text-light";
-        // // FEATURE CARD BODY
-        var featureCardBody = document.createElement("div");
-        featureCardBody.className = "card-body";
-        // // FEATURE CARD HEADER
-        var featureCardHeader = document.createElement("h5");
-        featureCardHeader.className = "card-title";
-        featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt + ")";
-        // // FEATURE CARD TEMP LINE
-        var featureCardTemp = document.createElement("p");
-        featureCardTemp.className = "card-text";
-        featureCardTemp.textContent = "Temp: " + list[0].main.temp + "\u00B0 F";
-        // // FEATURE CARD HUMIDITY LINE
-        var featureCardHumidity = document.createElement("p");
-        featureCardHumidity.className = "card-text";
-        featureCardHumidity.textContent = "Humidity: " + list[0].main.humidity + " %";
-        // // FEATURE CARD WIND LINE
-        var featureCardWind = document.createElement("p");
-        featureCardWind.className = "card-text";
-        featureCardWind.textContent = "Wind: " + list[0].wind.speed + " MPH";
+    // // FEATURE CARD
+    var featureCardEl = document.createElement("div");
+    featureCardEl.className = "card m-5 bg-success text-light";
+    // // FEATURE CARD BODY
+    var featureCardBody = document.createElement("div");
+    featureCardBody.className = "card-body";
+    // // FEATURE CARD HEADER
+    var featureCardHeader = document.createElement("h5");
+    featureCardHeader.className = "card-title";
+    featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt + ")";
+    // // FEATURE CARD TEMP LINE
+    var featureCardTemp = document.createElement("p");
+    featureCardTemp.className = "card-text";
+    featureCardTemp.textContent = "Temp: " + list[0].main.temp + "\u00B0 F";
+    // // FEATURE CARD HUMIDITY LINE
+    var featureCardHumidity = document.createElement("p");
+    featureCardHumidity.className = "card-text";
+    featureCardHumidity.textContent = "Humidity: " + list[0].main.humidity + " %";
+    // // FEATURE CARD WIND LINE
+    var featureCardWind = document.createElement("p");
+    featureCardWind.className = "card-text";
+    featureCardWind.textContent = "Wind: " + list[0].wind.speed + " MPH";
 
+    featuredCard.appendChild(featureCardEl);
+    featureCardEl.appendChild(featureCardBody);
+    featureCardBody.append(featureCardHeader, featureCardTemp, featureCardHumidity, featureCardWind);
+    
+    for (var i = 7; i < 40; i = i + 8) {          
         // FIVE-DAY FORECAST CARDS
 
         var cardEl = document.createElement("div");
@@ -81,11 +85,7 @@ var displayWeather = function (data, list) {
         var cardWind = document.createElement("p");
         cardWind.className = "card-text";
         cardWind.textContent = "Wind: " + list[i].wind.speed + " MPH";
-
-        featuredCard.appendChild(featureCardEl);
-        featureCardEl.appendChild(featureCardBody);
-        featureCardBody.append(featureCardHeader, featureCardTemp, featureCardHumidity, featureCardWind);
-
+        
         forecastCards.appendChild(cardEl);
         cardEl.appendChild(cardBody);
         cardBody.append(cardHeader, cardTemp, cardHumidity, cardWind);
