@@ -1,6 +1,7 @@
 var searchBtn = document.querySelector(".btn");
 var featuredCard = document.querySelector(".featured-card");
 var forecastCards = document.querySelector(".forecast-cards");
+var searchForm = document.querySelector("form");
 
 var getCityCoordinates = function () {
     var cityName = document.querySelector("#searchInput");
@@ -22,37 +23,39 @@ var getCityCoordinates = function () {
 var getWeatherForecast = function (lat, lon) {
     var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=2b66bb1041cf5c2ab89f9477dd5f8008&units=imperial";
     fetch(forecastUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            displayWeather(data, data.list);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        displayWeather(data, data.list);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 };
 
 var displayWeather = function (data, list) {
-    // // FEATURE CARD
+    featuredCard.innerHTML = null;
+    forecastCards.innerHTML = null;
+    // FEATURE CARD
     var featureCardEl = document.createElement("div");
     featureCardEl.className = "card m-5 bg-success text-light";
-    // // FEATURE CARD BODY
+    // FEATURE CARD BODY
     var featureCardBody = document.createElement("div");
     featureCardBody.className = "card-body";
-    // // FEATURE CARD HEADER
+    // FEATURE CARD HEADER
     var featureCardHeader = document.createElement("h5");
     featureCardHeader.className = "card-title";
     featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt + ")";
-    // // FEATURE CARD TEMP LINE
+    // FEATURE CARD TEMP LINE
     var featureCardTemp = document.createElement("p");
     featureCardTemp.className = "card-text";
     featureCardTemp.textContent = "Temp: " + list[0].main.temp + "\u00B0 F";
-    // // FEATURE CARD HUMIDITY LINE
+    // FEATURE CARD HUMIDITY LINE
     var featureCardHumidity = document.createElement("p");
     featureCardHumidity.className = "card-text";
     featureCardHumidity.textContent = "Humidity: " + list[0].main.humidity + " %";
-    // // FEATURE CARD WIND LINE
+    // FEATURE CARD WIND LINE
     var featureCardWind = document.createElement("p");
     featureCardWind.className = "card-text";
     featureCardWind.textContent = "Wind: " + list[0].wind.speed + " MPH";
@@ -63,7 +66,6 @@ var displayWeather = function (data, list) {
     
     for (var i = 7; i < 40; i = i + 8) {          
         // FIVE-DAY FORECAST CARDS
-
         var cardEl = document.createElement("div");
         cardEl.className = "card col me-3 bg-dark text-light";
         // CARD BODY
@@ -95,4 +97,19 @@ var displayWeather = function (data, list) {
 searchBtn.addEventListener("click", function (event) {
     event.preventDefault();
     getCityCoordinates();
+    var cityName = document.querySelector("#searchInput");
+    localStorage.setItem("City", cityName.value);
+    displayPastSearch(cityName.value);
 });
+
+var displayPastSearch = function (value) {
+    localStorage.getItem(value);
+    var cityBtnContainer = document.createElement("div");
+    cityBtnContainer.className = "d-grid gap-2 mt-1";
+    var cityBtn = document.createElement("button");
+    cityBtn.className = "btn btn-outline-light";
+    cityBtn.textContent = value;
+
+    searchForm.appendChild(cityBtnContainer);
+    cityBtnContainer.append(cityBtn);
+};
