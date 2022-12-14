@@ -25,7 +25,6 @@ var getWeatherForecast = function (lat, lon) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
         displayWeather(data, data.list);
     })
     .catch(function (error) {
@@ -81,7 +80,6 @@ var displayWeather = function (data, list) {
         cardHeader.className = "card-title";
         cardHeader.textContent = list[i].dt_txt.slice(0, -9);
        
-        console.log(data.list[i].weather[0].main);
         var cardWeatherIcon = document.createElement("p");
         if (data.list[i].weather[0].main === "Clear") {
             cardWeatherIcon.textContent = " \u2600\uFE0F";
