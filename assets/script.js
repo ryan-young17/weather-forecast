@@ -11,9 +11,7 @@ var getCityCoordinates = function () {
         return response.json();
     })
     .then(function (data) {
-        var lat = data[0].lat;
-        var lon = data[0].lon;
-        getWeatherForecast(lat, lon);
+        getWeatherForecast(data[0].lat, data[0].lon);
     })
     .catch(function (error) {
         console.log(error);
@@ -27,6 +25,7 @@ var getWeatherForecast = function (lat, lon) {
         return response.json();
     })
     .then(function (data) {
+        console.log(data);
         displayWeather(data, data.list);
     })
     .catch(function (error) {
@@ -46,7 +45,13 @@ var displayWeather = function (data, list) {
     // FEATURE CARD HEADER
     var featureCardHeader = document.createElement("h5");
     featureCardHeader.className = "card-title";
-    featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt + ")";
+    if (data.list[0].weather.main === "clear") {
+        featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt.slice(0, -9) + ")" + " \u2600\uFE0F";
+    } else if (data.list[0].weather.main === "clouds") {
+        featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt.slice(0, -9) + ")" + " \u2601\uFE0F";
+    } else {
+        featureCardHeader.textContent = data.city.name + " " + "(" + list[0].dt_txt.slice(0, -9) + ")" + " \uD83C\uDF27\uFE0F";
+    }
     // FEATURE CARD TEMP LINE
     var featureCardTemp = document.createElement("p");
     featureCardTemp.className = "card-text";
@@ -74,7 +79,16 @@ var displayWeather = function (data, list) {
         // CARD HEADER
         var cardHeader = document.createElement("h5");
         cardHeader.className = "card-title";
-        cardHeader.textContent = list[i].dt_txt;
+        cardHeader.textContent = list[i].dt_txt.slice(0, -9);
+        // CARD WEATHER ICON
+        var cardWeatherIcon = document.createElement("p");
+        if (data.list[i].weather.main === "clear") {
+            cardWeatherIcon.textContent = " \u2600\uFE0F";
+        } else if (data.list[i].weather.main === "clouds") {
+            cardWeatherIcon.textContent = " \u2601\uFE0F";
+        } else {
+            cardWeatherIcon.textContent = " \uD83C\uDF27\uFE0F";
+        }
         // CARD TEMP LINE
         var cardTemp = document.createElement("p");
         cardTemp.className = "card-text";
@@ -90,8 +104,9 @@ var displayWeather = function (data, list) {
         
         forecastCards.appendChild(cardEl);
         cardEl.appendChild(cardBody);
-        cardBody.append(cardHeader, cardTemp, cardHumidity, cardWind);
+        cardBody.append(cardHeader, cardWeatherIcon, cardTemp, cardHumidity, cardWind);
     }
+
 };
 
 searchBtn.addEventListener("click", function (event) {
@@ -112,4 +127,24 @@ var displayPastSearch = function (value) {
 
     searchForm.appendChild(cityBtnContainer);
     cityBtnContainer.append(cityBtn);
+
+    cityBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        cityBtn.value = cityBtn.textContent;
+        var cityName = cityBtn.textContent;
+        var newSearchUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=2b66bb1041cf5c2ab89f9477dd5f8008";
+        fetch(newSearchUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            getWeatherForecast(data[0].lat, data[0].lon);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        displayWeather();
+    });
+
 };
+
