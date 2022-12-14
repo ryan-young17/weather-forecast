@@ -1,6 +1,6 @@
 # Challenge 06 - Weather Dashboard
 
-[Link to my project]()
+[Link to my project](https://ryan-young17.github.io/weather-forecast/)
 
 ## Table of Contents
 - [Description](#Description)
