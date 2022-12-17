@@ -131,7 +131,7 @@ var displayPastSearch = function (value) {
         event.preventDefault();
         cityBtn.value = cityBtn.textContent;
         var cityName = cityBtn.textContent;
-        var newSearchUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=2b66bb1041cf5c2ab89f9477dd5f8008";
+        var newSearchUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=2b66bb1041cf5c2ab89f9477dd5f8008";
         fetch(newSearchUrl)
         .then(function (response) {
             return response.json();
