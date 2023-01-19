@@ -1,4 +1,4 @@
-# Challenge 06 - Weather Dashboard
+# Weather Dashboard
 
 [Link to my project](https://ryan-young17.github.io/weather-forecast/)
 
