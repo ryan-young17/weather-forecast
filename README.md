@@ -4,16 +4,12 @@
 
 ## Table of Contents
 - [Description](#Description)
-- [Visuals](#Visuals)
 - [Usage](#Usage)
+- [Visuals](#Visuals)
 
 ## Description
 
 The Weather Dashboard application is created so a user can input any major city in the search form and receive that city's current weather, as well as the future five-day forecast. The weather results include the date, temperature, humidity, wind, and also shows an icon for the overall weather that day (i.e. sunshine icon, cloud icon, or a rain cloud icon). Once a city has been searched, it is saved and appended to the page as a button they can use to retrieve the weather data again.
-
-## Visuals
-
-![Image of the deployed application](./assets/images/main-page.png)
 
 ## Usage
 
@@ -32,3 +28,7 @@ The Weather Dashboard application allows you to input any city in the search bar
 ![Image of the past search buttons](./assets/images/aside-past-searches.png)
 
 - You are then able to click on any of the buttons of the past searches to return the current weather data of that particular city.
+
+## Visuals
+
+![Image of the deployed application](./assets/images/main-page.png)
